@@ -7,6 +7,11 @@
   },
   "dependencies": {
     "express": "3.5.0",
-    "hjs": "*"
+    "hjs": "*",
+    "cradle": "0.6.7",
+    "twilio": "1.6.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
