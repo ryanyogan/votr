@@ -1,9 +1,9 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "votr",
+  "version": "0.0.1-1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "app.js"
   },
   "dependencies": {
     "express": "3.5.0",
@@ -11,6 +11,7 @@
     "cradle": "0.6.7",
     "twilio": "1.6.0"
   },
+  "subdomain": "voteandbet",
   "engines": {
     "node": "0.10.x"
   }
