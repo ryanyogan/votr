@@ -5,7 +5,7 @@ config.twilio = {};
 
 config.couchdb.url = 'https://votr.cloudant.com';
 config.couchdb.port = 443;
-config.couchdb.username = 'ryanyogan';
+config.couchdb.username = 'votr';
 config.couchdb.password = 'ryan0313';
 
 config.twilio.sid = 'ACe911a464acbc975fc9eaeaa17d425cef';
