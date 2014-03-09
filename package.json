@@ -1,6 +1,6 @@
 {
   "name": "votr",
-  "version": "0.0.2-2",
+  "version": "0.0.2-4",
   "private": true,
   "scripts": {
     "start": "app.js"
@@ -9,7 +9,8 @@
     "express": "3.5.0",
     "hjs": "0.0.6",
     "cradle": "0.6.7",
-    "twilio": "1.6.0"
+    "twilio": "1.6.0",
+    "socket.io": "0.9.11"
   },
   "subdomain": "voteandbet",
   "engines": {
