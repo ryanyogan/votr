@@ -1,7 +1,7 @@
 var utils = require('../utils')
   , config = require('../config')
-  , twilio = require('twilio')
-  , events = require('../events');
+  , twiliosig = require('twiliosig')
+  , events = require('../events')
   , io;
 
 module.exports = function(app, socketio) {
@@ -12,28 +12,46 @@ module.exports = function(app, socketio) {
 };
 
 
-var event = function(req, res) {
-  events.findBy('shortname', req.params.shortname, function(err, event) {
-    if (event) {
-      event.voteoptions.forEach(function(vo) {
-        delete vo.numbers;
-      });
+/*
+ * GET home page.
+ */
 
-      res.render('event', {
-        name: event.name, shortname: event.shortname, state: event.state,
-        phonenumber: utils.formatPhone(event.phonenumber),
-        voteoptions: JSON.stringify(event.voteoptions)
-      });
-    } else {
-      res.statusCode = 404;
-      res.send('We could not locate your event');
-    }
-  });
+var index = function(req, res){
+  res.render('index', { title: 'Express' });
 };
 
+/*
+ * GET an event.
+ */
 
-var voteSMS  = function(request, response) {
-    if (twilio.validateExpressRequest(request, config.twilio.key) || config.disableTwilioSigCheck) {
+var event = function(req, res){
+    
+    events.findBy('shortname', req.params.shortname, function(err, event) {
+        if (event) {
+            // remove sensitive data
+            event.voteoptions.forEach(function(vo){ 
+                delete vo.numbers;
+            });
+
+            res.render('event', {
+                name: event.name, shortname: event.shortname, state: event.state,
+                phonenumber: utils.formatPhone(event.phonenumber), voteoptions: JSON.stringify(event.voteoptions)   
+            });
+        }
+        else {
+            res.statusCode = 404;
+            res.send('We could not locate your event');
+        }
+    });
+};
+
+/*
+ * POST new vote via SMS
+ */
+
+var voteSMS = function(request, response) {
+
+    if (twiliosig.valid(request, config.twilio.key) || config.disableTwilioSigCheck) {
         response.header('Content-Type', 'text/xml');
         var body = request.param('Body').trim();
         
